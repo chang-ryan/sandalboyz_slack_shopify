@@ -5,6 +5,7 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem 'puma', '~> 3.7'
 gem 'shopify_api'
 gem 'pg'
+gem 'active_model_serializers'
 
 group :development, :test do
   gem 'pry-byebug', platform: :mri

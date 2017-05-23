@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20170523070808) do
     t.string "name", null: false
     t.string "remote_id", null: false
     t.string "handle", null: false
-    t.string "type", null: false
+    t.string "product_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
