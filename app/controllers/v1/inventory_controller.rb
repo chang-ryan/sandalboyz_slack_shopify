@@ -1,13 +1,24 @@
 # frozen_string_literal: true
 
-class InventoryController < ApplicationController
-  def index; end
+module V1
+  class InventoryController < ApplicationController
+    def index; end
 
-  def create
-    render json: inventory
+    def create
+      response = {
+        response_type: 'in_channel',
+        text: 'SANDALBOYZ',
+        attachments: [
+          {
+            text: 'Partly cloudy today and tomorrow'
+          }
+        ]
+      }
+      render json: response
+    end
+
+    private
+
+    def permitted_params; end
   end
-
-  private
-
-  def permitted_params; end
 end
