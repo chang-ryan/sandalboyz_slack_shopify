@@ -17,4 +17,7 @@
 !/log/.keep
 !/tmp/.keep
 
+# Ignore all local files pertaining to local environment.
+.env
+
 .byebug_history
