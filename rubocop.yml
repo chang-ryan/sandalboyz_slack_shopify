@@ -1,0 +1,45 @@
+AllCops:
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+    - 'lib/**/*.rake'
+  Exclude:
+    - 'bin/*'
+    - 'vendor/bundle/**/*'
+    - 'db/schema.rb'
+    - 'tmp/**/*'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'spec/support/**/*.rb'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'config/environments/*.rb'
+    - 'config/routes.rb'
+    - '**/*_spec.rb'
+    - 'spec/fabricators/**/*_fabricator.rb'
+
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Exclude:
+    - 'spec/support/**/*.rb'
+    - 'db/migrate/*.rb'
+
+Metrics/ModuleLength:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+    - 'spec/support/**/*_helpers.rb'
+
+Style/BlockDelimiters:
+  EnforcedStyle: semantic
+  Exclude:
+    - 'spec/fabricators/**/*_fabricator.rb'
+
+Style/Documentation:
+  Enabled: false
+
+Style/SignalException:
+  EnforcedStyle: semantic
