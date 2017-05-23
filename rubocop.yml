@@ -9,6 +9,9 @@ AllCops:
     - 'db/schema.rb'
     - 'tmp/**/*'
 
+Documentation:
+  Enabled: false
+
 Metrics/AbcSize:
   Exclude:
     - 'spec/support/**/*.rb'
