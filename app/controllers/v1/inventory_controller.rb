@@ -19,6 +19,8 @@ module V1
 
     private
 
-    def permitted_params; end
+    def permitted_params
+      params.permit(:command, :text, :user_id, :user_name)
+    end
   end
 end
