@@ -26,7 +26,8 @@ class SyncProducts
     product.variants.each do |variant|
       local_product = Product.find_by(remote_id: product.id)
       params = ProductVariantSerializer.new(variant).serializable_hash
-      new_variant = local_product.variants.new params
+      new_variant = local_product.variants.where(params)
+                                 .first_or_initialize
       new_variant.save
     end
   end
