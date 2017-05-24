@@ -9,8 +9,8 @@ class SyncProducts
   def perform
     product_ids.each do |id|
       product = ShopifyAPI::Product.find(id)
-      new_product = save_product(product)
-      save_variants(product, new_product)
+      save_product(product)
+      save_variants(product)
     end
   end
 
@@ -22,10 +22,11 @@ class SyncProducts
     product.save
   end
 
-  def save_variants(product, new_product)
+  def save_variants(product)
     product.variants.each do |variant|
+      local_product = Product.find_by(remote_id: product.id)
       params = ProductVariantSerializer.new(variant).serializable_hash
-      new_variant = new_product.variant.new params
+      new_variant = local_product.variants.new params
       new_variant.save
     end
   end

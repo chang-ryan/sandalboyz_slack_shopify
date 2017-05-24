@@ -1,5 +1,17 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe '#total_inventory' do
+    it 'sums up the inventory from the variants' do
+      product = Fabricate(:product) {
+        product_variants(count: 2, inverse_of: :product) {
+          Fabricate(:product_variant, inventory: 10)
+        }
+      }
+
+      expect(product.total_inventory).to eq 20
+    end
+  end
 end
