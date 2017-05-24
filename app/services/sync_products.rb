@@ -9,13 +9,26 @@ class SyncProducts
   def perform
     product_ids.each do |id|
       product = ShopifyAPI::Product.find(id)
-      params = ProductSerializer.new(product).serializable_hash
-      product = Product.where(params).first_or_initialize
-      product.save
+      new_product = save_product(product)
+      save_variants(product, new_product)
     end
   end
 
   private
+
+  def save_product(product)
+    params = ProductSerializer.new(product).serializable_hash
+    product = Product.where(params).first_or_initialize
+    product.save
+  end
+
+  def save_variants(product, new_product)
+    product.variants.each do |variant|
+      params = ProductVariantSerializer.new(variant).serializable_hash
+      new_variant = new_product.variant.new params
+      new_variant.save
+    end
+  end
 
   def product_ids
     @product_ids ||= ShopifyAPI::Collect.all.collect { |c|
