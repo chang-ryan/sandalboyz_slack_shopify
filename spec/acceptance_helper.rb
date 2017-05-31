@@ -10,5 +10,5 @@ RspecApiDocumentation.configure do |config|
   config.curl_headers_to_filter = %w(Cookie Host)
   config.api_name = 'SANDALBOYZ Shopify Microservice API'
 
-  config.request_body_formatter = proc { |params| params.to_json }
+  # config.request_body_formatter = proc { |params| params.to_json }
 end
