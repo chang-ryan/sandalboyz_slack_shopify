@@ -5,19 +5,27 @@ module V1
     def index; end
 
     def create
-      options = params[:text].split
-      variant_id = Product.find_by(name: options[0].capitalize)
-                          .variants.find_by(name: options[1]).remote_id
-      variant = ShopifyAPI::Variant.find(variant_id)
-      if (variant.inventory_quantity -= options[2].to_i).negative?
-        render_message('Not enough in stock.')
-      else
-        variant.save
-        render_message("Pulled successfully, #{variant.inventory_quantity} remaining.")
-      end
+      message = ::Inventory::Pull.new(product_name: product_name,
+                                      variant_name: variant_name,
+                                      quantity: quantity).perform
+
+      render_message(message)
     end
 
     private
+
+    def product_name
+      @product_name ||= permitted_params[:text].scan(/[A-Za-z]+/)
+                                               .map(&:capitalize).join(' ')
+    end
+
+    def variant_name
+      @variant_name ||= permitted_params[:text].scan(/[0-9]+/).first
+    end
+
+    def quantity
+      @quantity ||= permitted_params[:text].scan(/[0-9]+/).last
+    end
 
     def render_message(message)
       render json: {
