@@ -1,0 +1,38 @@
+dist: trusty
+sudo: false
+
+addons:
+  postgresql: "9.6"
+
+language: ruby
+cache: bundler
+bundler_args: "--jobs=3 --retry=3 --deployment --without production"
+
+before_install:
+  - gem update --system # see: https://github.com/sickill/rainbow/issues/44
+  - gem install bundler
+
+
+before_script:
+  - bin/rake db:setup
+script:
+  - bin/rubocop --display-cop-names --extra-details
+  - bin/rspec
+
+env:
+  global:
+    - AUTHORIZATION_HOST=http://api.example.com
+      SECRET_KEY_BASE=AnSekretKeyUseToValidateSignedCookiesAndTheLike
+      APPLICATION_ID=snapchat_service
+      AUTHORIZATION_TOKEN=iMMaSeekritToken
+      PUSHER_APP_ID='pusher_id'
+      PUSHER_APP_KEY='pusher_key'
+      PUSHER_APP_SECRET=iMMaSeekrit
+      TEST_ACCOUNT=1
+      REDIS_URL=redis://localhost:6379
+      SNAPCHAT_CLIENT_ID=faik
+      SNAPCHAT_CLIENT_SECRET=faik
+branches:
+  only:
+    - master
+    - develop
