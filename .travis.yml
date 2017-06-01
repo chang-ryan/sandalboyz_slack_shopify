@@ -17,6 +17,9 @@ script:
   - bundle exec rspec
   - bundle exec rubocop
 
+env:
+  global:
+    - SHOP_URL=www.shopify.com
 branches:
   only:
     - master
