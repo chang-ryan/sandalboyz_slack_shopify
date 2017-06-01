@@ -14,8 +14,8 @@ before_install:
 before_script:
   - bin/rake db:setup
 script:
-  - bundle exec rspec
-  - bundle exec rubocop
+  - bundle exec rspec --format documentation
+  - bundle exec rubocop --display-cop-names --extra-details
 
 env:
   global:
