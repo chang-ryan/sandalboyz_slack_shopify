@@ -12,9 +12,9 @@ before_install:
   - gem update --system # https://github.com/sickill/rainbow/issues/44
   - gem install bundler
 before_script:
-  - bin/rake db:setup
+  - rake db:setup
 script:
-  - bin/rspec
+  - rspec
 
 branches:
   only:
